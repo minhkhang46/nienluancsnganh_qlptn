@@ -36,6 +36,7 @@ Route::post('fullcalendar/update','App\Http\Controllers\FullCalenderController@u
 Route::post('fullcalendar/delete','App\Http\Controllers\FullCalenderController@destroy');
 Route::get('/lichptn','App\Http\Controllers\RegistrationController@lichptn')->name('lichptn');
 
+
 Route::get('/admin', 'App\Http\Controllers\AdminController@index');
 Route::get('/welcome', 'App\Http\Controllers\AdminController@showdashboard')->name('welcome'); 
 Route::get('/logout','App\Http\Controllers\AdminController@log_out')->name('logout');
@@ -44,21 +45,23 @@ Route::get('/dasboard','App\Http\Controllers\AdminController@admindashboard')->n
 Route::post('/account', [AdminController::class, 'createAccount'])->name('account');
 Route::get('/account', 'App\Http\Controllers\AdminController@showaccount')->name('accountform');
 Route::get('/danhsachacount', 'App\Http\Controllers\AdminController@Account')->name('accounts');
-Route::delete('/delete_acount/{role}', [AdminController::class, 'deleteAccount'])->name('delete_acount');
+Route::delete('/delete_acount/{id}', [AdminController::class, 'deleteAccount'])->name('delete_acount');
 Route::put('/update_acount/{id}/update', [AdminController::class, 'updateAccount'])->name('update_acount')->middleware('web');
 
 
 Route::get('/dk', 'App\Http\Controllers\RegistrationController@showRegistrationForm')->name('registrations');
 Route::get('/register', 'App\Http\Controllers\RegistrationController@Registration')->name('list');
+Route::get('/danhsachdangky','App\Http\Controllers\RegistrationController@dsdk')->name('ds');
 Route::get('/danhsach', 'App\Http\Controllers\RegistrationController@Registration1')->name('danhsach');
 Route::get('/danhsachadmin', 'App\Http\Controllers\RegistrationController@Registration2')->name('danhsachadmin');
+Route::get('/search', 'App\Http\Controllers\RegistrationController@search')->name('search');
 
 Route::post('/register', 'App\Http\Controllers\RegistrationController@register')->name('dangky');
 Route::get('/lich', 'App\Http\Controllers\RegistrationController@Registers');
 Route::get('/lich', [RegistrationController::class, 'showregistrationschedule'])->name('lich');
 Route::delete('/delete_route/{id}', [RegistrationController::class, 'deleteRegistration'])->name('delete_route');
-Route::get('/update_route/{id}/{idUser}/update', [RegistrationController::class, 'updateRegistration'])->name('update_route')->middleware('web');
-Route::get('/update_routeRefuse/{id}/update', [RegistrationController::class, 'updateRegistrationRefuse'])->name('update_routeRefuse')->middleware('web');
+Route::get('/update_route/{idUser}/{idPTN}/{update_time}/{date}/update', [RegistrationController::class, 'updateRegistration'])->name('update_route')->middleware('web');
+Route::get('/update_routeRefuse/{idUser}/{idPTN}/{update_time}/{date}/update', [RegistrationController::class, 'updateRegistrationRefuse'])->name('update_routeRefuse')->middleware('web');
 
 Route::get('/Thoigian', 'App\Http\Controllers\TimeController@showTimeForm')->name('thoigian');
 Route::get('/Thoigiandk', 'App\Http\Controllers\TimeController@Times')->name('timetg');
@@ -70,9 +73,9 @@ Route::get('/PTNghiem_lab', 'App\Http\Controllers\LabController@showlabsForm')->
 
 Route::post('/PTNghiem', 'App\Http\Controllers\LabController@createLab')->name('PTN');
 Route::get('/dsPTN', 'App\Http\Controllers\LabController@Labs')->name('dsPTN');
-Route::delete('/deletelab/{id}', [LabController::class, 'deletelab'])->name('deletelab');
-Route::get('/capnhat', 'App\Http\Controllers\LabController@updatelab')->name('capnhat');
+Route::delete('/deletelab/{idPTN}', [LabController::class, 'deletelab'])->name('deletelab');
 Route::put('/update_lab/{id}/update', [LabController::class, 'updatelabs'])->name('update_lab')->middleware('web');
+Route::get('/capnhatLab/{id}', 'App\Http\Controllers\LabController@updatelab')->name('capnhatlab');
 
 Route::get('/Phongtn/{id}', [LabController::class, 'show'])->name('Phongtn');
 Route::get('/PTN', 'App\Http\Controllers\LabController@labptn')->name('PTN1');
@@ -85,11 +88,15 @@ Route::post('/thietbi', 'App\Http\Controllers\DeviceController@creatdevice')->na
 Route::get('/dsthietbi', 'App\Http\Controllers\DeviceController@Devices')->name('dsthietbi');
 Route::delete('/deletetb/{id}', [DeviceController::class, 'deletedevice'])->name('deletetb');
 Route::put('/update_tb/{id}/update', [DeviceController::class, 'updatedevice'])->name('update_tb')->middleware('web');
+Route::get('/capnhat/{id}', 'App\Http\Controllers\DeviceController@updatedevices')->name('capnhat');
 
-Route::get('/YeuCau', 'App\Http\Controllers\UpdateLabController@showupdateForm')->name('YeuCau');
+Route::get('/YeuCau/{id}', 'App\Http\Controllers\UpdateLabController@showupdateForm')->name('YeuCau');
 Route::post('/YeuCauChinhSua', 'App\Http\Controllers\UpdateLabController@createupdate')->name('YeuCauChinhSua');
 Route::get('/dsYeuCau', 'App\Http\Controllers\UpdateLabController@listupdate')->name('dsYeuCau');
 Route::delete('/deleteup/{id}', [UpdateLabController::class, 'deleteupdate'])->name('deleteup');
+
+
+
 
 Route::get('/login', function() {
     return view('login');

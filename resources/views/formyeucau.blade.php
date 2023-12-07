@@ -15,7 +15,7 @@
 <div class="antialiased font-sans text-gray-900">
         <nav class="bg-white ">
             <div class="flex flex-wrap items-center justify-center">
-                <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-12 "> 
+               
                 <div class="flex items-center md:order-2 px-8 ">
                         <a class=" mr-1 md:mr-2">
                             @if(session()->has('name'))
@@ -51,13 +51,10 @@
                     </div>
                 </div>
 
+                <a href="{{url('/welcome')}}" class="  text-xl block py-2 pl-3 pr-2 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">
+                    <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-8"> </a>
                 <div id="mega-menu" class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 ">
                     <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
-                        <li>
-                            <a href="{{url('/welcome')}}"
-                                class="  text-xl block py-2 pl-3 pr-2 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-                                aria-current="page">Trang Chủ</a>
-                        </li>
                         <li>
                             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                                 <div class="dropdown inline-block relative">
@@ -70,7 +67,6 @@
                                         </svg>
                                     </button>
                                     <ul class="dropdown-menu fixed hidden text-gray-700 pl-2">
-                                        <!-- nho them vao -->
                                         @foreach($labs as $l)
                                             <li class=""><a class="text-xl rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="{{route('phong', ['id'=>$l->id])}})}}">{{$l->TenPTN}}</a></li>                     
                                         @endforeach
@@ -82,22 +78,14 @@
                             <a href="{{ route('calendar') }}"
                                 class=" text-xl block py-2 pl-3 pr-4 text-gray-900 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">Lịch Phòng Thí Nghiệm</a>
                         </li>
-                        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-                            <div class="dropdown inline-block relative">
-                                <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown"
-                                        class=" text-xl flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                                        Tùy Chỉnh Phòng Thí Nghiệm <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" fill="none"
-                                            viewBox="0 0 10 6">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 4 4 4-4" />
-                                        </svg>
-                                </button>
-                                <ul class="dropdown-menu fixed hidden text-gray-700 pl-2">
-                                    <li><a href="{{url('/dk')}}" class="text-xl rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">Đăng Ký Phòng Thí Nghiệm</a></li>
-                                    <li> <a href="{{route('YeuCau')}}"class="text-xl rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">Yêu Cầu Chỉnh Sửa Phòng Thí Nghiệm</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <li>
+                            <a href="{{ route('ds') }}"
+                                class=" text-xl block py-2 pl-3 pr-4 text-gray-900 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">Danh Sách Đăng Ký</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/dk')}}"
+                                class=" text-xl block py-2 pl-3 pr-4 text-gray-900 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">Đăng Ký Phòng Thí Nghiệm</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -118,40 +106,32 @@
                                         <label for="idUser">ID Người Dùng</label>
                                         <input type="text" name="idUser" id="idUser"
                                             class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                            value="{{ session('macv') }}" readonly />
+                                            value="{{ $datas->ID_User }}" readonly />
                                     </div>
                                     <div class="md:col-span-3">
                                         <label for="idPTN">ID Phòng Thí Nghiệm</label>
-                                        <select name="idPTN" id="idPTN"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
-                                            <option selected>Chọn ID Phòng Thí Nghiệm</option>
-                                            @foreach($labs as $l)
-                                            <option>{{$l->idPTN}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="idPTN" id="idPTN" max="10" min="0"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ $datas-> lab_name}}"
+                                          />
                                     </div>
                                     <div class="md:col-span-2">
-                                        <label for="quantity">Tổng Số Người Chỉnh Sửa</label>
+                                        <label for="quantity">Tổng Số Người Chỉnh Sửa  (Tối Đa 10 Người)</label>
                                         <input type="text" name="quantity" id="quantity" max="10" min="0"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value=""
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ $datas-> quantity}}"
                                             placeholder="Nhập tổng số" />
 
                                     </div>
                                     <div class="md:col-span-3">
-                                        <label for="update_time">Thời Gian Chỉnh Sửa</label>
-                                        <select name="update_time" id="update_time"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
-                                            <option selected>Thời Gian</option>
-                                            @foreach($times as $d)
-                                            <option>{{$d->ThoiGianBd }} - {{$d->ThoiGianKT}}</option>
-                                            @endforeach
-                                           
-                                        </select>
+                                        <label for="update_time">Thời Gian (Không Thể Chỉnh Sửa)</label>
+                                        <input type="text" name="update_time" id="update_time"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            value="{{ $datas-> registration_time}}" readonly />
                                     </div>
                                     <div class="md:col-span-2">
-                                        <label for="date">Ngày Chỉnh Sửa</label>
-                                        <input type="date" name="date" id="date"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                        <label for="date">Ngày (Không Thể Chỉnh Sửa)</label>
+                                        <input type="text" name="date" id="date"
+                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                            value="{{ $datas-> date}}" readonly />
                                     </div>
                                 </div>
                                 <button name
@@ -164,18 +144,43 @@
             </div>
         </div>
     </form>
-    @if (Session::has('Gửi Yêu Cầu Thành Công'))
-    <script>
-    window.onload = function() {
-        swal('Gửi Yêu Cầu Thành Công', '{{ Session::get('
-            Gửi Yêu Cầu Thành Công ') }}', 'error', {
-                button: true,
-                button: 'OK',
-                timer: 5000,
+
+
+    @if (Session::has('success'))
+        <script>
+        window.onload = function() {
+            swal('Success', '{{ Session::get('success') }}', 'success',{
+                button:true,
+                button:'OK',
+                timer:5000,
             });
-    }
-    </script>
+        }
+        </script>
     @endif
+    @if (Session::has('error'))
+        <script>
+        window.onload = function() {
+            swal('Error', '{{ Session::get('error') }}', 'error',{
+                button:true,
+                button:'OK',
+                timer:5000,
+            });
+        }
+        </script>
+    @endif
+
+    @if (Session::has('Sai số lượng'))
+        <script>
+        window.onload = function() {
+            swal('Sai số lượng', '{{ Session::get('Sai số lượng') }}', 'error',{
+                button:true,
+                button:'OK',
+                timer:5000,
+            });
+        }
+        </script>
+    @endif
+
 
 
 

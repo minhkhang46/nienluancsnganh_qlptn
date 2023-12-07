@@ -31,11 +31,14 @@ class DeviceController extends Controller
     }
 
 
-    public function Devices(): View
+    public function Devices(Request $request): View
     {  
          
         $Devis = Device::all();
-     
+        $keyword = $request->input('keyword');
+
+        $Devis = Device::where('idphong', 'like', "%$keyword%")->get();
+        session()->put('search_keyword', $keyword);
         return view('admin.dsthietbi')->with('Devis', $Devis);
     }
 
@@ -46,7 +49,7 @@ class DeviceController extends Controller
         $tbTonTai = Device::where('idthietbi', $request->idthietbi)->where('idphong', $request->idphong)->first();
             
         if ($tbTonTai) {
-            return redirect()->back()->with('Thiết Bị Đã Tồn Tại', 'Thiết Bị Đã Tồn Tại');
+            return redirect()->back()->with('Thêm Thiết Bi Không Thành Công', 'Thiết Bị Đã Tồn Tại');
         }
 
         $Devi = Device::create([
@@ -66,7 +69,9 @@ class DeviceController extends Controller
 
     public function deletedevice($id)
     {
-        $Devis = Device::where('idthietbi', $id)->first();
+        $Devis = Device::where('id', $id)->first();
+
+        // dd($id);
         if ($Devis) {
             $Devis->delete();
             Session::flash('Xóa Thành Công', 'Xóa thành công.');
@@ -77,28 +82,43 @@ class DeviceController extends Controller
 
         return redirect()->route('dsthietbi');
     }
-    
+
+    public function updatedevices($id){
+        // $datas = Time::all();
+        $Devis = Device::where('idthietbi', $id)->get(); 
+        //  dd($labs);
+        foreach($Devis as $d){
+            if($d)
+                // dd($l->Nhiemvu);
+                return view('admin.formcapnhattb', ['d' => $d]);
+            else
+                return redirect()->back()->with('error', 'Dữ liệu không tìm thấy');
+        }
+       
+    }
+
     public function updatedevice($id, Request $request)
     {
-        $Devis = Device::where('idthietbi', $id)->first(); // Tìm người dùng theo ID
-        if ($Devis) {
-            // $datas->update(['quantity' => $request->input('quantity')]);
-            // $datas->update(['registration_time' => $request->input('registration_time')]);
-            // $datas->update(['date' => $request->input('date')]);
-            $Devis->fill([
-                'tinhtrang' => $request->input('tinhtrang'),
-                'tinhnang' => $request->input('tinhnang'),
-            ]);
-           
-            $Devis->save();
-            // dd($datas);
-            // Thực hiện cập nhật các trường khác tùy thuộc vào yêu cầu của bạn
-    
-            Session::flash('Cập Nhật Thành Công', 'Cập nhật thành công.');
-        } else {
-            Session::flash('Cập Nhật Thất Bại', 'Cập nhật thất bại.');
+        $Devis = Device::where('idthietbi', $id)->get(); // Tìm người dùng theo ID
+        // dd($id);
+        foreach( $Devis as $d){
+            if ($d) {
+                $d->update(['tinhtrang' => $request->input('tinhtrang')]);
+                $d->update(['tinhnang' => $request->input('tinhnang')]);
+                // $datas->update(['date' => $request->input('date')]);
+                
+               
+                $d->save();
+                // dd($datas);
+                // Thực hiện cập nhật các trường khác tùy thuộc vào yêu cầu của bạn
+        
+                Session::flash('Cập Nhật Thành Công', 'Cập nhật thành công.');
+            } else {
+                Session::flash('Cập Nhật Thất Bại', 'Cập nhật thất bại.');
+            }
         }
+       
     
-        return redirect()->route('dsthietbi'); // Thay 'danhsach' bằng tên route của trang bạn muốn redirect đến
+        return redirect()->route('capnhat', ['id'=> $d->idthietbi]); // Thay 'danhsach' bằng tên route của trang bạn muốn redirect đến
     }
 }

@@ -16,7 +16,9 @@
 <div class="antialiased font-sans text-gray-900">
     <nav class="bg-white ">
             <div class="flex flex-wrap items-center justify-center">
-            <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-12 "> 
+                <a href="{{route('dasboard')}}"> 
+                    <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-10 "> 
+                </a>
                 <div class="flex items-center md:order-2 px-8 ">
                     <a class=" mr-1 md:mr-2">
 
@@ -52,11 +54,7 @@
 
             <div id="mega-menu" class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 ">
                 <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
-                    <li>
-                        <a href="{{route('dasboard')}}"
-                            class="text-xl block py-2 pl-3 pr-4 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-                            aria-current="page">Trang Chủ</a>
-                    </li>
+               
                     <li>
                         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                             <div class="dropdown inline-block relative">
@@ -119,7 +117,7 @@
                             <div class="dropdown inline-block relative">
                                 <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown"
                                     class="text-xl flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                                    Đăng Ký và Cập Nhật<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                                    Tùy Chỉnh Phòng Thí Nghiệm<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
                                         fill="none" viewBox="0 0 10 6">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="m1 1 4 4 4-4" />
@@ -131,9 +129,7 @@
                                             href="{{route('calendaradmin')}}">Danh Sách Đăng Ký</a></li>
                                     <li class=""><a
                                             class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 text-xl block whitespace-no-wrap"
-                                            href="{{route('dsPTN')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
-            
-
+                                            href="{{route('dsYeuCau')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -141,6 +137,8 @@
                 </ul>
             </div>
         </nav>
+    </div>
+
     </div>
     
     <form method="POST" action="{{route('times')}}">
@@ -185,28 +183,11 @@
                     <td class="px-4 py-3">{{$t->ThoiGianBd}}</td>
                     <td class="px-4 py-3">{{$t->ThoiGianKT}}</td>
                     <td class="px-4 py-3">
-                        <a href="{{ route('delete_tg', ['id' => $t->id]) }}"
-                            onclick="event.preventDefault(); document.getElementById('delete-form-{{$t->idtg}}').submit();"
-                            class="flex justify-center items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 48 48" class="h-10 w-10"
-                                    id="trash">
-                                    <path fill="#55aae1"
-                                        d="M36 44H12a3 3 0 0 1-3-3V12a1 1 0 0 1 1-1h28a1 1 0 0 1 1 1v29a3 3 0 0 1-3 3ZM11 13v28a1 1 0 0 0 1 1h24a1 1 0 0 0 1-1V13Z">
-                                    </path>
-                                    <path fill="#55aae1"
-                                        d="M35 12v26a2 2 0 0 1-2 2H10v1a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V12Z"
-                                        opacity=".35"></path>
-                                    <path fill="#55aae1"
-                                        d="M43 13H5a1 1 0 0 1 0-2h38a1 1 0 0 1 0 2zM17 35a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm14 0a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm-7 2a1 1 0 0 1-1-1V18a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z">
-                                    </path>
-                                    <path fill="#55aae1"
-                                        d="M33 13H15a1 1 0 0 1-1-1V7a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v5a1 1 0 0 1-1 1Zm-17-2h16V7a1 1 0 0 0-1-1H17a1 1 0 0 0-1 1Z">
-                                    </path>
-                                    </svg>
+                        <a onclick="delete_tg('{{ $t->id }}');" class="flex justify-center items-center">
+                            <img src="/my-project2/public/images/delete.png" alt="Logo" class="h-12">
                         </a>
 
-                        <form id="delete-form-{{$t->idtg}}" action="{{ route('delete_tg', ['id' => $t->id]) }}"
-                            method="POST">
+                        <form id="delete-form" method="POST" style="display: none;">
                             @csrf
                             @method('DELETE')
                         </form>
@@ -216,6 +197,38 @@
             </tbody>
         </table>
     </div>
+    <script>
+    function delete_tg(id) {
+        swal({
+                title: "Xác nhận xóa?",
+                text: "Bạn có chắc chắn muốn xóa thời gian ?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    submitForm(id);
+                } else {
+                    swal("Đã hủy", "Việc xóa đã bị hủy", "error");
+                }
+            });
+
+    }
+    </script>
+    <script>
+    function submitForm(id) {
+
+        var form = document.getElementById('delete-form');
+
+        form.action = "{{ route('delete_tg', ['id' => ':id']) }}";
+
+        form.action = form.action.replace(':id', id);
+
+        form.submit();
+
+    }
+    </script>
     @if (Session::has('Xóa Thất Bại'))
         <script>
         window.onload = function() {
@@ -239,7 +252,15 @@
      @endif
 
 
-   
+     @if (Session::has('Tạo Thành Công'))
+        <script>
+        window.onload = function() {
+            swal('Tạo Thành Công', '{{ Session::get('Tạo Thành Công') }}', 'success').then(function() {
+            window.location.href = '{{ route('timetg') }}';
+            });
+        }
+        </script>
+    @endif
 
 </body>
 

@@ -24,21 +24,54 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UpdateLabController extends Controller
 {
-    public function showupdateForm(){
+    public function showupdateForm($id){
+        // dd($id);
         $labs = Lab::all();
-        $times = Time::all();
-        return view('formyeucau' ,['labs'=>$labs, 'times'=> $times, ]);
+ 
+        $datas = Registration::where('id', $id)->first();
+        if($datas){
+            return view('formyeucau' ,['labs'=>$labs, 'datas'=>$datas]);
+        }
+        else {
+            return redirect()->back()->with('error', 'không tìm tháy du lieu');
+        }
+        
+      
+       
     }
 
     public function listupdate(){
         $ups = UpdateLab::all();
        
+      
         return view('admin.danhsachcapnhat' ,['ups'=>$ups ]);
     }
 
+    
     public function createupdate(Request $request): RedirectResponse
     {
-       
+        $uplab = UpdateLab::where('idUser', $request->idUser)->get();
+        // dd($uplab);
+        // dd($request->idPTN, $request->idUser, $request->update_time, $request->date);
+        $quantity = $request->input('quantity');
+
+        if ($quantity > 10) {
+            return redirect()->back()->with('Sai số lượng', 'Số lượng không được vượt quá 10.');
+        }
+
+        foreach($uplab as $u){
+            if  ($u->idUser == $request->idUser && 
+                $u->idPTN == $request->idPTN && 
+                $u->update_time == $request->update_time && 
+                $u->date == $request->date ){
+                    
+                if($u->status == 0 ){
+
+                    return redirect()->back()->with('error', 'Đợi admin xử lý yêu cầu trước đó');
+                }
+            }
+        }
+
         $up = UpdateLab::create([
             'idUser' => $request->idUser,
             'idPTN' => $request->idPTN,
@@ -49,9 +82,7 @@ class UpdateLabController extends Controller
         
         event(new Registered($up));
       
-        $ups = UpdateLab::all();
-       
-        return redirect()->route('YeuCau', ['ups' => $ups])->with('Gửi Yêu Cầu Thành Công','Gửi Yêu Cầu Thành Công' );
+        return redirect()->back()->with('success','Gửi Yêu Cầu Thành Công' );
     }
 
 

@@ -15,20 +15,8 @@
 <body class="antialiased bg-white font-sans text-gray-900" style="background-image: url('/my-project2/public/images/anhnen5.png'); background-size: cover; background-repeat: repeat; background-position: center; justify-content: center; align-items: center; height: 100vh;">
     <nav class="bg-white px-40" style="display: flex; align-items: center;">
         <a href="{{route('welcome')}}" style="display: flex; align-items: center;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="back" class="h-15 w-12">
-                <g data-name="Left arrow">
-                    <path fill="#8c9eff"
-                        d="M25 15H9.14l3.63-4.36a1 1 0 0 0-1.54-1.28l-5 6a1.19 1.19 0 0 0-.09.15c0 .05 0 .08-.07.13A1 1 0 0 0 6 16a1 1 0 0 0 .07.36c0 .05 0 .08.07.13a1.19 1.19 0 0 0 .09.15l5 6A1 1 0 0 0 12 23a1 1 0 0 0 .64-.23 1 1 0 0 0 .13-1.41L9.14 17H25a1 1 0 0 0 0-2Z">
-                    </path>
-                    <path fill="#5f7cf9"
-                        d="M6.07 16.36c0 .05 0 .08.07.13a1.19 1.19 0 0 0 .09.15l5 6A1 1 0 0 0 12 23a1 1 0 0 0 .64-.23 1 1 0 0 0 .13-1.41L9.14 17H25a1 1 0 0 0 1-1H6a1 1 0 0 0 .07.36Z">
-                    </path>
-                </g>
-            </svg>
-        </a>
-        <div class="max-w-xs" style="display: flex; align-items: center;">
             <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 ml-16">
-        </div>
+        </a>
     </nav>
     <section class=" bg-gray-100 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 py-10 " style="background-color: rgb(243 244 246)">
 

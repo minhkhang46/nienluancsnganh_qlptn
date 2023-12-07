@@ -51,13 +51,14 @@ class TimeController extends Controller
    
         //dd($request->ID_User);
         $datas = Time::all();
-        return redirect()->route('times', ['datas' => $datas])->with('Tạo  Thành Công', 'Tạo  thành công');
+        return redirect()->route('times', ['datas' => $datas])->with('Tạo Thành Công', 'Tạo Thời Gian thành công');
     }
 
     
     public function destroy($id)
     {
         $times = Time::where('id', $id)->first();
+        // dd($times);
         if ($times) {
             $times->delete();
             Session::flash('Xóa Thành Công', 'Xóa thành công.');
@@ -68,5 +69,4 @@ class TimeController extends Controller
 
         return redirect()->route('times');
     }
-
 }

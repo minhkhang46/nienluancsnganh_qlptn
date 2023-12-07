@@ -10,13 +10,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
 </head>
 
-<body style="background-image: url('/my-project2/public/images/anhnen5.png'); background-size: cover; background-repeat: repeat; background-position: center; justify-content: center; align-items: center; height: 100vh;"">
-<div class="antialiased font-sans text-gray-900">
+<body
+    style="background-image: url('/my-project2/public/images/anhnen5.png'); background-size: cover; background-repeat: repeat; background-position: center; justify-content: center; align-items: center; height: 100vh;">
+    <div class="antialiased font-sans text-gray-900">
     <nav class="bg-white ">
             <div class="flex flex-wrap items-center justify-center">
-            <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-12 "> 
+                <a href="{{route('dasboard')}}"> 
+                    <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-10 "> 
+                </a>
                 <div class="flex items-center md:order-2 px-8 ">
                     <a class=" mr-1 md:mr-2">
 
@@ -52,11 +60,7 @@
 
             <div id="mega-menu" class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 ">
                 <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
-                    <li>
-                        <a href="{{route('dasboard')}}"
-                            class="text-xl block py-2 pl-3 pr-4 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-                            aria-current="page">Trang Chủ</a>
-                    </li>
+                
                     <li>
                         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                             <div class="dropdown inline-block relative">
@@ -119,7 +123,7 @@
                             <div class="dropdown inline-block relative">
                                 <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown"
                                     class="text-xl flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                                    Đăng Ký và Cập Nhật<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                                    Tùy Chỉnh Phòng Thí Nghiệm<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
                                         fill="none" viewBox="0 0 10 6">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="m1 1 4 4 4-4" />
@@ -131,9 +135,7 @@
                                             href="{{route('calendaradmin')}}">Danh Sách Đăng Ký</a></li>
                                     <li class=""><a
                                             class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 text-xl block whitespace-no-wrap"
-                                            href="{{route('dsPTN')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
-            
-
+                                            href="{{route('dsYeuCau')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -167,46 +169,25 @@
                             <td class="px-4 py-3 text-xl text-center">{{$l->TenPTN}}</td>
                             <td class="px-6 py-3 text-xl text-left">{{$l->Nhiemvu}}</td>
                             <td class="px-6 py-3 text-xl text-left">{{$l->Nghiencuu}}</td>
-                            <td class="px-6 py-3 text-xl text-center">{{$l->image}}</td>
+                            <td class="px-6 py-3 text-xl text-center"><img src="{{ asset('./images/'.$l->image) }}" class="h-24 w-96"> </td>
                             <td class="px-4 py-3">
-                                <a href="{{ route('deletelab', ['id'=> $l->idPTN]) }}"
-                                    onclick="event.preventDefault(); document.getElementById('delete-form').submit();"
-                                    class="flex justify-center items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 48 48"
-                                        class="h-10 w-10" id="trash">
-                                        <path fill="#55aae1"
-                                            d="M36 44H12a3 3 0 0 1-3-3V12a1 1 0 0 1 1-1h28a1 1 0 0 1 1 1v29a3 3 0 0 1-3 3ZM11 13v28a1 1 0 0 0 1 1h24a1 1 0 0 0 1-1V13Z">
-                                        </path>
-                                        <path fill="#55aae1"
-                                            d="M35 12v26a2 2 0 0 1-2 2H10v1a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V12Z"
-                                            opacity=".35"></path>
-                                        <path fill="#55aae1"
-                                            d="M43 13H5a1 1 0 0 1 0-2h38a1 1 0 0 1 0 2zM17 35a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm14 0a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm-7 2a1 1 0 0 1-1-1V18a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z">
-                                        </path>
-                                        <path fill="#55aae1"
-                                            d="M33 13H15a1 1 0 0 1-1-1V7a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v5a1 1 0 0 1-1 1Zm-17-2h16V7a1 1 0 0 0-1-1H17a1 1 0 0 0-1 1Z">
-                                        </path>
-                                    </svg>
+                                <a onclick="deleteLab('{{ $l->idPTN }}');" class="flex justify-center items-center">
+                                    <img src="/my-project2/public/images/delete.png" alt="Logo" class="h-12">
                                 </a>
-                                <form id="delete-form" action="{{ route('deletelab', ['id' => $l->idPTN]) }}"
-                                    method="POST" style="display: none;">
+
+                                <form id="delete-form" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
+                                <!-- <a onclick="confirmDelete({{ $l->id }})">
+                                  <img src="/delete.png">
+                                </a>  -->
+
                             </td>
                             <td class="px-4 py-3">
-                                <a href="{{route('capnhat')}}" class="flex justify-center items-center" >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" class="h-10 w-10"
-                                    id="reload">
-                                    <path fill="#5596ff"
-                                        d="M12.5,21A7.5,7.5,0,0,1,6.713,8.729a.5.5,0,1,1,.771.637A6.5,6.5,0,1,0,12.5,7h-3a.5.5,0,0,1,0-1h3a7.5,7.5,0,0,1,0,15Z">
-                                    </path>
-                                    <path fill="#5596ff"
-                                        d="M11.5,9a.5.5,0,0,1-.354-.146l-2-2a.5.5,0,0,1,.708-.708l2,2A.5.5,0,0,1,11.5,9Z">
-                                    </path>
-                                    <path fill="#5596ff"
-                                        d="M9.5,7a.5.5,0,0,1-.354-.854l2-2a.5.5,0,0,1,.708.708l-2,2A.5.5,0,0,1,9.5,7Z">
-                                    </path></svg>
+                                <a href="{{route('capnhatlab', ['id'=> $l->idPTN])}}"
+                                    class="flex justify-center items-center">
+                                    <img src="/my-project2/public/images/edit.png" alt="Logo" class="h-10">
                                 </a>
                             </td>
                         </tr>
@@ -218,11 +199,43 @@
             </div>
         </div>
     </div>
-    @if (Session::has('Xóa Thất Bại'))
+    <script>
+    function deleteLab(idPTN) {
+        swal({
+                title: "Xác nhận xóa?",
+                text: "Bạn có chắc chắn muốn xóa phòng {{$l->idPTN}} ",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    submitForm(idPTN);
+                } else {
+                    swal("Đã hủy", "Việc xóa đã bị hủy", "error");
+                }
+            });
+
+    }
+    </script>
+    <script>
+    function submitForm(idPTN) {
+
+        var form = document.getElementById('delete-form');
+
+        form.action = "{{ route('deletelab', ['idPTN' => ':idPTN']) }}";
+
+        form.action = form.action.replace(':idPTN', idPTN);
+
+        form.submit();
+
+    }
+    </script>
+
+    @if (Session::has('Xóa không thành công'))
     <script>
     window.onload = function() {
-        swal('Xóa Thất Bại', '{{ Session::get('
-            Xóa Thất Bại ') }}', 'error', {
+        swal('Xóa Không Thành Công', '{{ Session::get('Xóa Không Thành Công ') }}', 'error', {
                 button: true,
                 button: 'OK',
                 timer: 5000,
@@ -230,15 +243,14 @@
     }
     </script>
     @endif
-
-    @if (Session::has('Xóa Thành Công') && Session::get('Xóa Thành Công') !== false)
-    <script>
-    window.onload = function() {
-        swal('Xóa Thành Công', '{{ Session::get('
-            Xóa Thành Công ') }}', 'success');
-    }
-    </script>
-    <?php Session::forget('Xóa Thành Công'); ?>
+    @if (Session::has('Xóa thành công'))
+        <script>
+            window.onload = function() {
+                swal('Xóa Thành Công', '{{ Session::get('Xóa Thành Công') }}', 'success').then(function() {
+                    window.location.href = '{{ route('dsPTN') }}';
+                });
+            }
+        </script>
     @endif
 
     @if (Session::has('Cập Nhật Thất Bại'))
@@ -263,6 +275,8 @@
     </script>
     <?php Session::forget('Cập Nhật Thành Công'); ?>
     @endif
+
+
 </body>
 
 </html>

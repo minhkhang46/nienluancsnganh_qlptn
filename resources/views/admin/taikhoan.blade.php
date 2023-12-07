@@ -16,7 +16,9 @@
 <div class="antialiased font-sans text-gray-900">
     <nav class="bg-white ">
             <div class="flex flex-wrap items-center justify-center">
-            <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-12 "> 
+                <a href="{{route('dasboard')}}"> 
+                    <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-10 "> 
+                </a>
                 <div class="flex items-center md:order-2 px-8 ">
                     <a class=" mr-1 md:mr-2">
 
@@ -49,14 +51,9 @@
 
                 </div>
             </div>
-
+        
             <div id="mega-menu" class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 ">
                 <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
-                    <li>
-                        <a href="{{route('dasboard')}}"
-                            class="text-xl block py-2 pl-3 pr-4 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-                            aria-current="page">Trang Chủ</a>
-                    </li>
                     <li>
                         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                             <div class="dropdown inline-block relative">
@@ -119,7 +116,7 @@
                             <div class="dropdown inline-block relative">
                                 <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown"
                                     class="text-xl flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                                    Đăng Ký và Cập Nhật<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                                    Tùy Chỉnh Phòng Thí Nghiệm<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
                                         fill="none" viewBox="0 0 10 6">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="m1 1 4 4 4-4" />
@@ -131,9 +128,7 @@
                                             href="{{route('calendaradmin')}}">Danh Sách Đăng Ký</a></li>
                                     <li class=""><a
                                             class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 text-xl block whitespace-no-wrap"
-                                            href="{{route('dsPTN')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
-            
-
+                                            href="{{route('dsYeuCau')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -142,7 +137,6 @@
             </div>
         </nav>
     </div>
-    
    <form method="POST" action="{{route('account')}}">
         @csrf
         <div class="pt-44 flex items-center justify-center">
@@ -153,32 +147,32 @@
                         <div class="md:col-span-5">
                             <label for="macv">ID Người Dùng</label>
                             <input type="text" name="macv" id="macv"
-                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ old('ID_User') }}"
+                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ old('ID_User') }}" required
                                 placeholder="Nhập ID Người Dùng" />
                         </div>
                         <div class="md:col-span-5">
                             <label for="name">Họ và Tên</label>
                             <input type="text" name="name" id="name"
-                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ old('full_name') }}"
-                                placeholder="Nhập Họ Tên" />
+                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ old('full_name') }}" 
+                                placeholder="Nhập Họ Tên"/>
                         </div>
                         <div class="md:col-span-5">
                             <label for="email">Email</label>
                             <input type="email" name="email" id="email"
-                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ old('email') }}"
+                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ old('email') }} " required
                                 placeholder="Nhập Email" />
                         </div>
                         <div class="md:col-span-5">
                             <label for="password">Mật Khẩu</label>
                             <input type="password" name="password" id="password"
-                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="Mật Khẩu" />
+                                class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="Mật Khẩu" required/>
                         </div>
                         <div class="md:col-span-5">
                             <label for="role">Chức Vụ</label>
                             <select name="role" id="role" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                                 <option selected>Chức Vụ</option>
                                 <option value="Admin">Admin</option>
-                                <option value="Giảng Viên">Giảng Viên</option>
+                                <!-- <option value="Giảng Viên">Giảng Viên</option> -->
                                 <option value="Sinh Viên">Sinh Viên</option>
                             </select>
                         </div>
@@ -192,82 +186,31 @@
     </form>
     
     </div>
+
     @if (Session::has('Tạo Tài Khoản Không Thành Công'))
-    <script>
-    window.onload = function() {
-        swal('Tạo Tài Khoản Không Thành Công', '{{ Session::get('
-            Tạo Tài Khoản Không Thành Công ') }}', 'error', {
-                button: true,
-                button: 'OK',
-                timer: 5000,
+        <script>
+        window.onload = function() {
+            swal('Tạo Tài Khoản Không Thành Công', '{{ Session::get('Tạo Tài Khoản Không Thành Công') }}', 'error',{
+                button:true,
+                button:'OK',
+                timer:5000,
             });
-    }
-    </script>
+        }
+        </script>
     @endif
+   
 
-    @if (Session::has('Tạo Taì Khoản Thành Công') && Session::get('Tạo Taì Khoản Thành Công') !== false)
-    <script>
-    window.onload = function() {
-        swal('Tạo Taì Khoản Thành Công', '{{ Session::get('
-            Tạo Taì Khoản Thành Công') }}', 'success').then(function() {
+    @if (Session::has('Tạo Tài Khoản Thành Công'))
+        <script>
+        window.onload = function() {
+            swal('Tạo Tài Khoản Thành Công', '{{ Session::get('Tạo Tài Khoản Thành Công') }}', 'success').then(function() {
             window.location.href = '{{ route('accounts') }}';
-        });
-    }
-    </script>
-    <?php Session::forget('Xóa Thành Công'); ?>
-    @endif
-
-    @if (Session::has('Xóa Thất Bại'))
-    <script>
-    window.onload = function() {
-        swal('Xóa Thất Bại', '{{ Session::get('
-            Xóa Thất Bại ') }}', 'error', {
-                button: true,
-                button: 'OK',
-                timer: 5000,
             });
-    }
-    </script>
+        }
+        </script>
     @endif
 
-    @if (Session::has('Xóa Thành Công') && Session::get('Xóa Thành Công') !== false)
-    <script>
-    window.onload = function() {
-        swal('Xóa Thành Công', '{{ Session::get('
-            Xóa Thành Công ') }}', 'success').then(function() {
-            window.location.href = '{{ route('
-            danhsachadmin ') }}';
-        });
-    }
-    </script>
-    <?php Session::forget('Xóa Thành Công'); ?>
-    @endif
 
-    @if (Session::has('Cập Nhật Thất Bại'))
-    <script>
-    window.onload = function() {
-        swal('Cập Nhật Thất Bại', '{{ Session::get('
-            Cập Nhật Thất Bại ') }}', 'error', {
-                button: true,
-                button: 'OK',
-                timer: 5000,
-            });
-    }
-    </script>
-    @endif
-
-    @if (Session::has('Cập Nhật Thành Công') && Session::get('Cập Nhật Thành Công') !== false)
-    <script>
-    window.onload = function() {
-        swal('Cập Nhật Thành Công', '{{ Session::get('
-            Cập Nhật Thành Công ') }}', 'success').then(function() {
-            window.location.href = '{{ route('
-            danhsachadmin ') }}';
-        });
-    }
-    </script>
-    <?php Session::forget('Cập Nhật Thành Công'); ?>
-    @endif
 </body>
 
 </html>

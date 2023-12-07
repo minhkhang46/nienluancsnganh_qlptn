@@ -41,7 +41,9 @@
 <div class="antialiased font-sans text-gray-900">
     <nav class="bg-white ">
             <div class="flex flex-wrap items-center justify-center">
-            <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-12 "> 
+                <a href="{{route('dasboard')}}"> 
+                    <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-10 "> 
+                </a>
                 <div class="flex items-center md:order-2 px-8 ">
                     <a class=" mr-1 md:mr-2">
 
@@ -77,11 +79,7 @@
 
             <div id="mega-menu" class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 ">
                 <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
-                    <li>
-                        <a href="{{route('dasboard')}}"
-                            class="text-xl block py-2 pl-3 pr-4 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-                            aria-current="page">Trang Chủ</a>
-                    </li>
+                
                     <li>
                         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                             <div class="dropdown inline-block relative">
@@ -144,7 +142,7 @@
                             <div class="dropdown inline-block relative">
                                 <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown"
                                     class="text-xl flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                                    Đăng Ký và Cập Nhật<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                                    Tùy Chỉnh Phòng Thí Nghiệm<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
                                         fill="none" viewBox="0 0 10 6">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="m1 1 4 4 4-4" />
@@ -156,9 +154,7 @@
                                             href="{{route('calendaradmin')}}">Danh Sách Đăng Ký</a></li>
                                     <li class=""><a
                                             class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 text-xl block whitespace-no-wrap"
-                                            href="{{route('dsPTN')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
-            
-
+                                            href="{{route('dsYeuCau')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -171,8 +167,28 @@
     <div class="px-20 py-20">
         <div class="w-full overflow-hidden rounded-lg shadow-xs">
             <div class="w-full-x-auto ">
-            <h1 class="font-semibold text-2xl text-indigo-600 mb-8 text-center">Bảng Danh Sách Đăng Ký</h1>
+            <h1 class="font-semibold text-3xl text-indigo-600 mb-8 text-center">Bảng Danh Sách Đăng Ký</h1>
+            <form class="flex justify-end pb-2" action="{{ route('danhsachadmin') }}" method="GET">
+            
+                <input 
+                type="text"
+                name="keyword"
+                placeholder="Tìm kiếm..." 
+                class="border border-gray-300  px-4 py-2 w-96"
+                value="{{ session('search_keyword') }}">
+            
+                <button 
+                type="submit">
+                    <img src="/my-project2/public/images/magnifying-glass.png" alt="Logo" class="h-10 px-4 py-2 bg-white "> 
+                </button>
+          
+          </form>
                 <table class="w-full whitespace-no-wrap">
+                    @php
+                            $datas = $datas->sort(function($a, $b) {
+                                return strtotime($b->date) - strtotime($a->date); 
+                            });
+                        @endphp
                     <thead>
                         <tr
                             class="text-lg text-center font-semibold tracking-wide  text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -187,6 +203,47 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-xl text-center">
+                    @if(session('search_keyword'))
+                        @if(count($datas) == 0)
+                            <tr>
+                                <td colspan="7" class="text-center text-red-600 p-2 text-2xl">Không Tồn Tại Người Dùng </td>
+                            </tr>
+                        @else
+                            @foreach ($datas as $r)
+                                @php
+                                $datas = $datas->sort(function($a, $b) {
+                                    return strtotime($b->date) - strtotime($a->date); 
+                                });
+                                @endphp
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3">{{$r->ID_User}}</td>
+                                    <td class="px-4 py-3">{{$r->full_name}}</td>
+                                    <td class="px-4 py-3">{{$r->lab_name}}</td>
+                                    <td class="px-4 py-3">{{$r->quantity}}</td>
+                                    <td class="px-4 py-3">{{$r->registration_time}}</td>
+                                    <td class="px-4 py-3">{{$r->date}}</td>
+
+                                    <td class="px-4 py-3">
+                                        <a onclick="delete_route('{{ $r->id}}');" class="flex justify-center items-center">
+                                            <img src="/my-project2/public/images/delete.png" alt="Logo" class="h-12">
+                                        </a>
+
+                                        <form id="delete-form" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </td>
+                                    
+                                </tr>
+                            @endforeach
+                        @endif
+                    @else
+                        @php
+                            $datas = $datas->sort(function($a, $b) {
+                                return strtotime($b->date) - strtotime($a->date); 
+                            });
+                        @endphp
+                     
 
                         @foreach ($datas as $r)
                         <tr class="text-gray-700 dark:text-gray-400">
@@ -198,61 +255,20 @@
                             <td class="px-4 py-3">{{$r->date}}</td>
 
                             <td class="px-4 py-3">
-                                <a href="{{ route('delete_route', ['id' => $r->ID_User]) }}"
-                                    onclick="event.preventDefault(); document.getElementById('delete-form').submit();"
-                                    class="flex justify-center items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 48 48" class="h-10 w-10"
-                                    id="trash">
-                                    <path fill="#55aae1"
-                                        d="M36 44H12a3 3 0 0 1-3-3V12a1 1 0 0 1 1-1h28a1 1 0 0 1 1 1v29a3 3 0 0 1-3 3ZM11 13v28a1 1 0 0 0 1 1h24a1 1 0 0 0 1-1V13Z">
-                                    </path>
-                                    <path fill="#55aae1"
-                                        d="M35 12v26a2 2 0 0 1-2 2H10v1a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V12Z"
-                                        opacity=".35"></path>
-                                    <path fill="#55aae1"
-                                        d="M43 13H5a1 1 0 0 1 0-2h38a1 1 0 0 1 0 2zM17 35a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm14 0a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm-7 2a1 1 0 0 1-1-1V18a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z">
-                                    </path>
-                                    <path fill="#55aae1"
-                                        d="M33 13H15a1 1 0 0 1-1-1V7a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v5a1 1 0 0 1-1 1Zm-17-2h16V7a1 1 0 0 0-1-1H17a1 1 0 0 0-1 1Z">
-                                    </path>
-                                    </svg>
+                                <a onclick="delete_route('{{ $r->id}}');" class="flex justify-center items-center">
+                                    <img src="/my-project2/public/images/delete.png" alt="Logo" class="h-12">
                                 </a>
-                                
-                                <form id="delete-form" action="{{ route('delete_route', ['id' => $r->ID_User]) }}"
-                                    method="POST" style="display: none;">
+
+                                <form id="delete-form" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
                             </td>
-                            <!-- <th class="px-4 py-3">
-                                <form action="{{ route('update_route', ['id' => $r->ID_User]) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="md:col-span-2">
-                                        <input type="text" name="quantity" id="quantity" max="10" min="0"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                            value="{{ $r->quantity }}" placeholder="Nhập tổng số" />
-                                    </div>
-                                    <div class="md:col-span-3">
-                                        <select name="registration_time" id="registration_time"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
-                                            @foreach($times as $d)
-                                            <option>{{$d->ThoiGianBd }} - {{$d->ThoiGianKT}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="md:col-span-2">
-                                        <input type="date" name="date" id="date" value="{{ $r->date }}"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
-                                    </div>
-
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700
-                                     text-white font-bold py-2 px-4 rounded text-center w-full mt-4">Cập Nhật</button>
-                                     
-                                </form>
-                            </th> -->
+                            
                         </tr>
                         @endforeach
+                        @endif
+
                     </tbody>
                 </table>
             </div>
@@ -269,7 +285,39 @@
                     </div>
                 </div>
     </div>
+    
+    <script>
+    function delete_route(id) {
+        swal({
+                title: "Xác nhận xóa?",
+                text: "Bạn có chắc chắn muốn xóa đăng ký?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    submitForm(id);
+                } else {
+                    swal("Đã hủy", "Việc xóa đã bị hủy", "error");
+                }
+            });
 
+    }
+    </script>
+    <script>
+    function submitForm(id) {
+
+        var form = document.getElementById('delete-form');
+
+        form.action = "{{ route('delete_route', ['id' => ':id']) }}";
+
+        form.action = form.action.replace(':id', id);
+
+        form.submit();
+
+    }
+    </script>
     <script>
     $(document).ready(function () {
         function capitalizeFirstLetter(string) {
@@ -382,46 +430,17 @@
         }
         </script>
         @endif
-
         @if (Session::has('Xóa Thành Công') && Session::get('Xóa Thành Công') !== false)
         <script>
-        window.onload = function() {
-            swal('Xóa Thành Công', '{{ Session::get('
-                Xóa Thành Công ') }}', 'success'{
-                    button: true,
-                    button: 'OK',
-                    timer: 5000,
-            });
-        }
-        </script>
-        <?php Session::forget('Xóa Thành Công'); ?>
-        @endif
-
-        @if (Session::has('Cập Nhật Thất Bại'))
-        <script>
-        window.onload = function() {
-            swal('Cập Nhật Thất Bại', '{{ Session::get('
-                Cập Nhật Thất Bại ') }}', 'error', {
-                    button: true,
-                    button: 'OK',
-                    timer: 5000,
+            window.onload = function() {
+                swal('Xóa Thành Công', '{{ Session::get('Xóa Thành Công') }}', 'success').then(function() {
+                    window.location.href = '{{ route('danhsachadmin') }}';
                 });
-        }
+            }
         </script>
-        @endif
+     @endif
 
-        @if (Session::has('Cập Nhật Thành Công') && Session::get('Cập Nhật Thành Công') !== false)
-        <script>
-        window.onload = function() {
-            swal('Cập Nhật Thành Công', '{{ Session::get('
-                Cập Nhật Thành Công ') }}', 'success', {
-                    button: true,
-                    button: 'OK',
-                    timer: 5000,
-                });
-        }
-        </script>
-        @endif
+
 </body>
 
 </html>

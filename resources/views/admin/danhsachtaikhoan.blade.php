@@ -16,7 +16,9 @@
 <div class="antialiased font-sans text-gray-900">
     <nav class="bg-white ">
             <div class="flex flex-wrap items-center justify-center">
-            <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-12 "> 
+                <a href="{{route('dasboard')}}"> 
+                    <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-10 "> 
+                </a>
                 <div class="flex items-center md:order-2 px-8 ">
                     <a class=" mr-1 md:mr-2">
 
@@ -52,11 +54,7 @@
 
             <div id="mega-menu" class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 ">
                 <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
-                    <li>
-                        <a href="{{route('dasboard')}}"
-                            class="text-xl block py-2 pl-3 pr-4 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-                            aria-current="page">Trang Chủ</a>
-                    </li>
+                 
                     <li>
                         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                             <div class="dropdown inline-block relative">
@@ -119,7 +117,7 @@
                             <div class="dropdown inline-block relative">
                                 <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown"
                                     class="text-xl flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                                    Đăng Ký và Cập Nhật<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                                    Tùy Chỉnh Phòng Thí Nghiệm<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
                                         fill="none" viewBox="0 0 10 6">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="m1 1 4 4 4-4" />
@@ -131,9 +129,7 @@
                                             href="{{route('calendaradmin')}}">Danh Sách Đăng Ký</a></li>
                                     <li class=""><a
                                             class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 text-xl block whitespace-no-wrap"
-                                            href="{{route('dsPTN')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
-            
-
+                                            href="{{route('dsYeuCau')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -187,7 +183,7 @@
                             <th class="px-4 py-3">Email</th>
                             <th class="px-4 py-3">Chức Vụ</th>
                             <th class="px-4 py-3">Xóa</th>
-                            <th class="px-4 py-3">Cập Nhật</th>
+                            <!-- <th class="px-4 py-3">Cập Nhật</th> -->
                         </tr>
                     </thead>
 
@@ -201,56 +197,16 @@
                             <td class="px-4 py-3">{{$r->role}}</td>
                             <!-- Các cột xóa và cập nhật -->
                             <td class="px-4 py-3">
-                                <a href="{{ route('delete_acount', ['role'=> $r->role]) }}"
-                                    onclick="event.preventDefault(); document.getElementById('delete-form').submit();"
-                                    class="flex justify-center items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 48 48" class="h-10 w-10"
-                                    id="trash">
-                                    <path fill="#55aae1"
-                                        d="M36 44H12a3 3 0 0 1-3-3V12a1 1 0 0 1 1-1h28a1 1 0 0 1 1 1v29a3 3 0 0 1-3 3ZM11 13v28a1 1 0 0 0 1 1h24a1 1 0 0 0 1-1V13Z">
-                                    </path>
-                                    <path fill="#55aae1"
-                                        d="M35 12v26a2 2 0 0 1-2 2H10v1a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V12Z"
-                                        opacity=".35"></path>
-                                    <path fill="#55aae1"
-                                        d="M43 13H5a1 1 0 0 1 0-2h38a1 1 0 0 1 0 2zM17 35a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm14 0a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm-7 2a1 1 0 0 1-1-1V18a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z">
-                                    </path>
-                                    <path fill="#55aae1"
-                                        d="M33 13H15a1 1 0 0 1-1-1V7a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v5a1 1 0 0 1-1 1Zm-17-2h16V7a1 1 0 0 0-1-1H17a1 1 0 0 0-1 1Z">
-                                    </path>
-                                    </svg>
+                                <a onclick="delete_acount('{{ $r->id}}');" class="flex justify-center items-center">
+                                    <img src="/my-project2/public/images/delete.png" alt="Logo" class="h-12">
                                 </a>
-                                <form id="delete-form" action="{{ route('delete_acount', ['role' => $r->role]) }}"
-                                    method="POST" style="display: none;">
+
+                                <form id="delete-form" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
                             </td>
-                            <th class="px-4 py-3">
-                                <form action="{{ route('update_acount', ['id' => $r->macv]) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="md:col-span-5">
-                                        <input type="text" name="macv" id="macv"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                            value="{{$r->macv}}" placeholder="Nhập ID Người Dùng" />
-                                    </div>
-                                    <div class="md:col-span-5">
-                                        <input type="name" name="name" id="name"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                            value="{{ $r->name }}" placeholder="Nhập name" />
-                                    </div>
-                                    <div class="md:col-span-5">
-                                        <input type="email" name="email" id="email"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                            value="{{ $r->email }}" placeholder="Nhập Email" />
-                                    </div>
-            
-                                    <button type="submit"
-                                        class="bg-blue-500 hover:bg-blue-700
-                                         text-white font-bold py-2 px-4 rounded text-center w-full mt-4">Cập Nhật</button>
-                                </form>
-                            </th>
+                           
                         </tr>
                         @endif
                         @endforeach
@@ -258,7 +214,7 @@
                 </table>
 
                 <table class="w-full whitespace-no-wrap">
-                <h1 class="font-semibold text-3xl text-indigo-700 mb-8 text-center ">Bảng Admin</h1>
+                <h1 class="font-semibold text-3xl text-indigo-700 mb-8 text-center pt-20">Bảng Admin</h1>
                     <thead>
                         <tr
                             class="text-lg text-center font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -267,7 +223,7 @@
                             <th class="px-4 py-3">Email</th>
                             <th class="px-4 py-3">Chức Vụ</th>
                             <th class="px-4 py-3">Xóa</th>
-                            <th class="px-4 py-3">Cập Nhật</th>
+                            <!-- <th class="px-4 py-3">Cập Nhật</th> -->
                         </tr>
                     </thead>
 
@@ -281,55 +237,16 @@
                             <td class="px-4 py-3">{{$r->role}}</td>
                             <!-- Các cột xóa và cập nhật -->
                             <td class="px-4 py-3">
-                                <a href="{{ route('delete_acount', ['role'=> $r->role]) }}"
-                                    onclick="event.preventDefault(); document.getElementById('delete-form').submit();"
-                                    class="flex justify-center items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 48 48" class="h-10 w-10"
-                                    id="trash">
-                                    <path fill="#55aae1"
-                                        d="M36 44H12a3 3 0 0 1-3-3V12a1 1 0 0 1 1-1h28a1 1 0 0 1 1 1v29a3 3 0 0 1-3 3ZM11 13v28a1 1 0 0 0 1 1h24a1 1 0 0 0 1-1V13Z">
-                                    </path>
-                                    <path fill="#55aae1"
-                                        d="M35 12v26a2 2 0 0 1-2 2H10v1a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V12Z"
-                                        opacity=".35"></path>
-                                    <path fill="#55aae1"
-                                        d="M43 13H5a1 1 0 0 1 0-2h38a1 1 0 0 1 0 2zM17 35a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm14 0a1 1 0 0 1-1-1V20a1 1 0 0 1 2 0v14a1 1 0 0 1-1 1zm-7 2a1 1 0 0 1-1-1V18a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z">
-                                    </path>
-                                    <path fill="#55aae1"
-                                        d="M33 13H15a1 1 0 0 1-1-1V7a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v5a1 1 0 0 1-1 1Zm-17-2h16V7a1 1 0 0 0-1-1H17a1 1 0 0 0-1 1Z">
-                                    </path>
-                                    </svg>
+                                <a onclick="delete_acount('{{ $r->id}}');" class="flex justify-center items-center">
+                                    <img src="/my-project2/public/images/delete.png" alt="Logo" class="h-12">
                                 </a>
-                                <form id="delete-form" action="{{ route('delete_acount', ['role' => $r->role]) }}"
-                                    method="POST" style="display: none;">
+
+                                <form id="delete-form" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
                             </td>
-                            <th class="px-4 py-3">
-                                <form action="{{ route('update_acount', ['id' => $r->macv]) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="md:col-span-5">
-                                        <input type="text" name="macv" id="macv"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                            value="{{$r->macv}}" placeholder="Nhập ID Người Dùng" />
-                                    </div>
-                                    <div class="md:col-span-5">
-                                        <input type="name" name="name" id="name"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                            value="{{ $r->name }}" placeholder="Nhập name" />
-                                    </div>
-                                    <div class="md:col-span-5">
-                                        <input type="email" name="email" id="email"
-                                            class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                                            value="{{ $r->email }}" placeholder="Nhập Email" />
-                                    </div>
-                                    <button type="submit"
-                                        class="bg-blue-500 hover:bg-blue-700
-                                         text-white font-bold py-2 px-4 rounded text-center w-full mt-4">Cập Nhật</button>
-                                </form>
-                            </th>
+                         
                         </tr>
                         @endif
                         @endforeach
@@ -338,28 +255,39 @@
             </div>
         </div>
     </div>
-    @if (Session::has('Xóa Thất Bại'))
     <script>
-    window.onload = function() {
-        swal('Xóa Thất Bại', '{{ Session::get('
-            Xóa Thất Bại ') }}', 'error', {
-                button: true,
-                button: 'OK',
-                timer: 5000,
+    function delete_acount(id) {
+        swal({
+                title: "Xác nhận xóa?",
+                text: "Bạn có chắc chắn muốn xóa tài khoản {{ $r->macv }}?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    submitForm(id);
+                } else {
+                    swal("Đã hủy", "Việc xóa đã bị hủy", "error");
+                }
             });
-    }
-    </script>
-    @endif
 
-    @if (Session::has('Xóa Thành Công') && Session::get('Xóa Thành Công') !== false)
-    <script>
-    window.onload = function() {
-        swal('Xóa Thành Công', '{{ Session::get('
-            Xóa Thành Công ') }}', 'success');
     }
     </script>
-    <?php Session::forget('Xóa Thành Công'); ?>
-    @endif
+    <script>
+    function submitForm(id) {
+
+        var form = document.getElementById('delete-form');
+
+        form.action = "{{ route('delete_acount', ['id' => ':id']) }}";
+
+        form.action = form.action.replace(':id', id);
+
+        form.submit();
+
+    }
+    </script>
+    
 
     @if (Session::has('Cập Nhật Thất Bại'))
     <script>
@@ -382,6 +310,28 @@
     }
     </script>
     <?php Session::forget('Cập Nhật Thành Công'); ?>
+    @endif
+
+    @if (Session::has('Xóa Thành Công') && Session::get('Xóa Thành Công') !== false)
+        <script>
+            window.onload = function() {
+                swal('Xóa Thành Công', '{{ Session::get('Xóa Thành Công') }}', 'success').then(function() {
+                    window.location.href = '{{ route('accounts') }}';
+                });
+            }
+        </script>
+    @endif
+    @if (Session::has('error'))
+    <script>
+    window.onload = function() {
+        swal('Error', '{{ Session::get('
+            error ') }}', 'error', {
+                button: true,
+                button: 'OK',
+                timer: 5000,
+            });
+    }
+    </script>
     @endif
 </body>
 

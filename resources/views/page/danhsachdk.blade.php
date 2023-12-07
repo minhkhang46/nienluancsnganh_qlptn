@@ -38,12 +38,9 @@
 </head>
 
 <body style="background-image: url('/my-project2/public/images/anhnen5.png'); background-size: cover; background-repeat: repeat; background-position: center; justify-content: center; align-items: center; height: 100vh;">
-   
-
 <div class="antialiased font-sans text-gray-900">
         <nav class="bg-white ">
             <div class="flex flex-wrap items-center justify-center max-w-screen-xl mx-auto ">
-                 <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-12 "> 
                 <div class="flex items-center md:order-2 px-8 ">
                     <a href="{{url('/login')}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-8 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800  text-xl">Đăng Nhập</a>
                     <button data-collapse-toggle="mega-menu" type="button" class="inline-flex items-center p-4 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mega-menu" aria-expanded="false">
@@ -54,27 +51,26 @@
                     </button>
                     
                 </div>
-                
+                <a href="{{route('trangchu1')}}" class="block py-2 pl-3 pr-4  text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">
+                                <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-10"> </a>
+
                 <div id="mega-menu" class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 ">
                     <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
                         <li>
-                            <a href="{{route('trangchu1')}}" class="block py-2 pl-3 pr-4 text-xl text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Trang Chủ</a>
-                        </li>
-                        <li>
-                        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-                        <div class="dropdown inline-block relative">
-                            <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown" class="  text-xl flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                                Danh Mục <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
-                            </button>
-                            <ul class="dropdown-menu fixed hidden text-gray-700 pl-2">
-                            @foreach($labs as $l)
-                                <li class=""><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="{{route('Phongtn', ['id'=>$l->id])}}">{{$l->TenPTN}}</a></li>                     
-                            @endforeach
-                            
-                            </ul>
-                        </div>
-                        </div>
+                            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+                                <div class="dropdown inline-block relative">
+                                    <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown" class="  text-xl flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
+                                        Danh Mục <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
+                                    </button>
+                                    <ul class="dropdown-menu fixed hidden text-gray-700 pl-2">
+                                    @foreach($labs as $l)
+                                        <li class=""><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="{{route('Phongtn', ['id'=>$l->id])}}">{{$l->TenPTN}}</a></li>                     
+                                    @endforeach
+                                    
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
                         <li>
                             <a href="{{route('calendarpage')}}" class="  text-xl block py-2 pl-3 pr-4 text-gray-900 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">Lịch Phòng Thí Nghiệm</a>
@@ -85,17 +81,8 @@
             </div>
         </nav>
     </div>
-    <div class="bg-gray-500 overflow-hidden shadow-sm sm:rounded-lg mx-72 mt-20 ">
-       
-       <!-- Calendar -->
-       <div class="bg-white rounded-sm my-8 mx-6">
-           <div class="container pt-4">
-               <div class="response"></div>
-               <div id='calendar'></div>  
-           </div>
-       </div>
-    </div>
-    <div class="px-20 py-20">
+   
+    <!-- <div class="px-20 py-20">
         <div class="w-full overflow-hidden rounded-lg shadow-xs">
             <div class="w-full-x-auto ">
             <h1 class="font-semibold text-3xl text-indigo-700 mb-8 text-center ">Danh Sách Đăng Ký</h1>
@@ -112,6 +99,11 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-xl text-center">
+                        @php
+                            $datas = $datas->sort(function($a, $b) {
+                                return strtotime($b->date) - strtotime($a->date); 
+                            });
+                         @endphp
     
 						@php
 							$registeredSlots = []; // Mảng lưu trữ các giá trị đã được đăng ký trước đó
@@ -143,8 +135,17 @@
             </div>
   
         </div>
-	</div>
- 
+	</div> -->
+    <div class="bg-gray-500 overflow-hidden shadow-sm sm:rounded-lg mx-72 mt-20 ">
+       
+       <!-- Calendar -->
+       <div class="bg-white rounded-sm my-8 mx-6">
+           <div class="container pt-4">
+               <div class="response"></div>
+               <div id='calendar'></div>  
+           </div>
+       </div>
+    </div>
     <script>
     $(document).ready(function () {
         function capitalizeFirstLetter(string) {

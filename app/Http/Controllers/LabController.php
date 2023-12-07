@@ -71,10 +71,18 @@ class LabController extends Controller
     }
   
 
-    public function updatelab(){
+    public function updatelab($id){
         // $datas = Time::all();
-        $labs = Lab::all();
-        return view('admin.formcapnhapPTN')->with('labs', $labs);
+        $labs = Lab::where('idPTN', $id)->get();
+        //  dd($labs);
+        foreach($labs as $l){
+            if($l)
+                // dd($l->Nhiemvu);
+                return view('admin.formcapnhapPTN', ['l' => $l]);
+            else
+                return redirect()->back()->with('error', 'Dữ liệu không tìm thấy');
+        }
+       
     }
 
 
@@ -116,41 +124,48 @@ class LabController extends Controller
     }
     
 
-    public function deletelab($id)
+    public function deletelab($idPTN)
     {
-        $labs = Lab::where('idPTN', $id)->first();
-        if ($labs) {
-            $labs->delete();
-            Session::flash('Xóa Thành Công', 'Xóa thành công.');
+        $lab = Lab::where('idPTN',$idPTN)->first();
+      
+        if ($lab) {
+            $lab->delete();
+            Session::flash('Xóa Thành Công', 'Xóa phòng thí nghiệm thành công.');
         } else {
-            
-            Session::flash('Xóa Thất Bại', 'Xóa thất bại.');
+            Session::flash('Xóa Không Thành Công', 'Xóa phòng thí nghiệm thất bại.');
         }
-
+    
         return redirect()->route('dsPTN');
     }
     
     public function updatelabs($id, Request $request)
     {
         $labs = Lab::where('idPTN', $id)->get(); // Tìm người dùng theo ID
-        if ($labs) {
-            // $datas->update(['quantity' => $request->input('quantity')]);
-            // $datas->update(['registration_time' => $request->input('registration_time')]);
-            // $datas->update(['date' => $request->input('date')]);
-            $labs->fill([
-                'Nhiemvu' => $request->input('Nhiemvu'),
-                'Nghiencuu' => $request->input('Nghiencuu'),
-            ]);
-           
-            $labs->save();
-            // dd($datas);
-            // Thực hiện cập nhật các trường khác tùy thuộc vào yêu cầu của bạn
+        // dd($labs);
+        // dd($id);
+        foreach($labs as $l){
+            if ($l) {
+                $l->update(['Nhiemvu' => $request->input('Nhiemvu')]);
+                $l->update(['Nghiencuu' => $request->input('Nghiencuu')]);
+                // // $datas->update(['date' => $request->input('date')]);
     
-            Session::flash('Cập Nhật Thành Công', 'Cập nhật thành công.');
-        } else {
-            Session::flash('Cập Nhật Thất Bại', 'Cập nhật thất bại.');
+                
+                // $labs->fill([
+                //     'Nhiemvu' => $request->input('Nhiemvu'),
+                //     'Nghiencuu' => $request->input('Nghiencuu'),
+                // ]);
+               
+                $l->save();
+                // dd($datas);
+                // Thực hiện cập nhật các trường khác tùy thuộc vào yêu cầu của bạn
+        
+                Session::flash('Cập Nhật Thành Công', 'Cập nhật thành công.');
+            } else {
+                Session::flash('Cập Nhật Thất Bại', 'Cập nhật thất bại.');
+            }
         }
+        
     
-        return redirect()->route('capnhat'); // Thay 'danhsach' bằng tên route của trang bạn muốn redirect đến
+        return redirect()->route('capnhatlab',['id' => $l->idPTN]); // Thay 'danhsach' bằng tên route của trang bạn muốn redirect đến
     }
 }

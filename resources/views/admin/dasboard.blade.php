@@ -7,13 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
     <title>Hệ Thống Quản Lý</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 
 <body style="background-image: url('/my-project2/public/images/anhnen5.png'); background-size: cover; background-repeat: repeat; background-position: center; justify-content: center; align-items: center; height: 100vh;"">
 <div class="antialiased font-sans text-gray-900">
     <nav class="bg-white ">
             <div class="flex flex-wrap items-center justify-center">
-            <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-12 "> 
+                <a href="{{route('dasboard')}}"> 
+                    <img src="/my-project2/public/images/logo_3.png" alt="Logo" class="h-24 mr-10 "> 
+                </a>
                 <div class="flex items-center md:order-2 px-8 ">
                     <a class=" mr-1 md:mr-2">
 
@@ -49,11 +53,7 @@
 
             <div id="mega-menu" class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 ">
                 <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0">
-                    <li>
-                        <a href="{{route('dasboard')}}"
-                            class="text-xl block py-2 pl-3 pr-4 text-blue-600 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-                            aria-current="page">Trang Chủ</a>
-                    </li>
+                
                     <li>
                         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                             <div class="dropdown inline-block relative">
@@ -65,7 +65,7 @@
                                             stroke-width="2" d="m1 1 4 4 4-4" />
                                     </svg>
                                 </button>
-                                <ul class="dropdown-menu fixed hidden text-gray-700 pl-2">
+                                <ul class="dropdown-menu fixed hidden text-gray-700 pl-2 ">
                                     <li class=""><a
                                             class="rounded-b bg-gray-200 text-xl hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
                                             href="{{route('account')}}">Tạo Tài Khoản</a></li>
@@ -88,7 +88,7 @@
                                             stroke-width="2" d="m1 1 4 4 4-4" />
                                     </svg>
                                 </button>
-                                <ul class="dropdown-menu fixed hidden text-gray-700 pl-2">
+                                <ul class="dropdown-menu fixed hidden text-gray-700 pl-2 column-list">
                                     <li class=""><a
                                             class="rounded-b bg-gray-200 text-xl hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
                                             href="{{route('PTNghiem1')}}">Tạo Phòng Thí Nghiệm</a></li>
@@ -116,7 +116,7 @@
                             <div class="dropdown inline-block relative">
                                 <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown"
                                     class="text-xl flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                                    Đăng Ký và Cập Nhật<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                                    Tùy Chỉnh Phòng Thí Nghiệm<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
                                         fill="none" viewBox="0 0 10 6">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="m1 1 4 4 4-4" />
@@ -129,8 +129,6 @@
                                     <li class=""><a
                                             class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 text-xl block whitespace-no-wrap"
                                             href="{{route('dsYeuCau')}}">Danh Sách Yêu Cầu Cập Nhật</a></li>
-            
-
                                 </ul>
                             </div>
                         </div>
@@ -140,47 +138,36 @@
         </nav>
     </div>
     
-    <div class="pt-28">
-        <h1 class="text-center text-3xl font-bold text-indigo-700 sm:text-4xl pb-10">PHÒNG THÍ NGHIỆM</h1>
+    <div class="pt-14">
+        <h1 class="text-center text-3xl font-bold text-indigo-700 sm:text-4xl pb-5">PHÒNG THÍ NGHIỆM</h1>
     </div>
-    
 
-    @php $first = true; @endphp
-    @foreach ($labs as $l)
-    <div class="max-w-9xl flex items-center justify-center flex-wrap mx-auto my-32 lg:my-0 px-32 pt-12 {{ $first ? '' : ' ml-auto' }} {{ $loop->odd ? 'odd' : 'even' }}">
-        @if ($loop->odd)
-        <!--Img Col-->
-        <div class="w-1/4 lg:w-1/4">
-            <!-- Big profile image for side bar (desktop) -->
-            <img src="{{ asset('images/' . $l->image) }}" class="h-full w-full ">
-            <!-- Image from: http://unsplash.com/photos/MP0IUfwrn0A -->
-        </div>
-        @endif
-
-        <!--Main Col-->
-        <div id="profile" class="w-full lg:w-3/5  shadow-2xl bg-white opacity-100 mx-6 lg:mx-0">
-            <div class="p-10 md:p-12 text-center lg:text-left">
-                <!-- Image for mobile view-->
-                <div class="block lg:hidden rounded-full shadow-1xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center" style="background-image: url('{{ asset('images/' . $l->image) }}')"></div>
-
-                <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ $l->TenPTN }}</h1>
-                <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
-                <p class="pt-2 text-xl">{{ $l->Nhiemvu }}</p>
-                <a href="{{ route('ptn1', ['id'=>$l->id]) }}">Xem thêm</a>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            @foreach ($labs as $l)
+            <div class="swiper-slide flex flex-wrap">
+    <!--Img Col-->
+                <!--Main Col-->
+                <div id="profile" class="w-full lg:w-3/5 shadow-2xl bg-white opacity-100 mx-6 lg:mx-0">
+                    <div class="p-2 md:p-12 text-center lg:text-left flex flex-col items-center lg:items-start">
+                        <!-- Image for mobile view-->
+                        <div class=" h-96 w-full bg-cover bg-center"
+                            style="background-image: url('{{ asset('images/' . $l->image) }}')">
+                        </div>
+                        <h1 class="text-3xl font-bold pt-10 lg:pt-8 text-center px-60">{{ $l->TenPTN }}</h1>
+                        <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
+                        <p class="pt-2 text-xl">{{ $l->Nhiemvu }}.. <a href="{{ route('ptn1', ['id'=>$l->id]) }}">Xem thêm</a></p>
+                        
+                    </div>
+                </div> 
             </div>
+            @endforeach
         </div>
-
-        @if (!$loop->odd)
-        <!--Img Col-->
-        <div class="w-1/4 lg:w-1/4">
-            <!-- Big profile image for side bar (desktop) -->
-            <img src="{{ asset('images/' . $l->image) }}" class="h-full w-full ">
-            <!-- Image from: http://unsplash.com/photos/MP0IUfwrn0A -->
-        </div>
-        @endif
+    <!-- Add pagination bullets here (optional) -->
+        <div class="swiper-pagination "></div>
+        <div class="swiper-button-next">    </div>
+        <div class="swiper-button-prev"></div>
     </div>
-    @php $first = false; @endphp
-    @endforeach
    
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131505823-4"></script>
@@ -193,7 +180,44 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-131505823-4');
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        loop: true,
+        spaceBetween: 20,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        // autoplay: {
+        //     delay: 5000, // Đặt thời gian trễ giữa các slide (đơn vị: ms)
+        // },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            delay: 50000, // Đặt thời gian trễ giữa các slide (đơn vị: ms)
+        },
+
+    });
+   
     </script>
+    <style>
+        .swiper-slide{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+     
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: black;
+        }
+        .column-list {
+            column-count: 2; /* Số cột bạn muốn hiển thị */
+            column-gap: 0px; /* Khoảng cách giữa các cột */
+        }
+    </style>
 
 </body>
 

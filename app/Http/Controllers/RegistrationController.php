@@ -64,9 +64,27 @@ class RegistrationController extends Controller
           
         }
         $labs = Lab::all();
-       return view('lich', ['labs'=>$labs, 'datas'=> $datas]);
+    
+       return view('lich', ['labs'=>$labs, 'datas'=> $datas,]);
     }
 
+    public function dsdk(Request $request)
+    {
+        $datas = Registration::all();
+       
+        //dd($registrations->all());
+        $keyword = $request->input('keyword');
+
+        $datas = Registration::where('ID_User', 'like', "%$keyword%")->get();
+        session()->put('search_keyword', $keyword);
+        foreach ($datas as $r) {
+            $r->date = Carbon::parse($r->date)->format('d-m-Y');
+          
+        }
+        $labs = Lab::all();
+        
+       return view('dsdangky', ['labs'=>$labs, 'datas'=> $datas]);
+    }
 
     public function Registration()
     {  
@@ -102,14 +120,19 @@ class RegistrationController extends Controller
     }
 
     //trả về danh sách đăng ký admin
-    public function Registration2(): View
+    public function Registration2(Request $request): View
     {   
         $datas = Registration::all();
         $userId = Auth::id(); // Lấy ID của người dùng đã đăng nhập
 
     // Kiểm tra nếu người dùng đã đăng nhập
         //dd($registrations->all());
-        $datas = Registration::orderBy('date')->get();
+        
+
+        $keyword = $request->input('keyword');
+
+        $datas = Registration::where('ID_User', 'like', "%$keyword%")->get();
+        session()->put('search_keyword', $keyword);
         foreach ($datas as $r) {
             $r->date = Carbon::parse($r->date)->format('d-m-Y');
         }
@@ -117,10 +140,12 @@ class RegistrationController extends Controller
         //return view('lich', compact('datas'))->with('danhSachData', $datas);
        $times = Time::all();
         //dd($registrations->all());
-     
+       
         return view('admin.danhsach')->with(['datas' => $datas, 'times' => $times]);
     }
 
+  
+    
     //hàm đăn ký
     public function register(Request $request): RedirectResponse
     {
@@ -166,8 +191,8 @@ class RegistrationController extends Controller
     //hàm xóa
     public function deleteRegistration($id)
     {
-        $datas = Registration::where('ID_User', $id)->first(); // Tìm người dùng theo ID
-
+        $datas = Registration::where('id', $id)->first(); // Tìm người dùng theo ID
+        //  dd($id);
         if ($datas) {
         //  dd($datas); // Hiển thị thông tin người dùng
 
@@ -184,50 +209,70 @@ class RegistrationController extends Controller
     //hàm cập nhật
 
 
-    public function updateRegistration($id, $idUser)
+    public function updateRegistration($idUser, $idPTN, $update_time, $date)
     {
         // dd($id);
-        $datas = Registration::where('id', $id)->first();
-
-
-        $dataupdate = UpdateLab::where('id', $id)->first();
+        // dd($idUser, $idPTN, $update_time, $date);
+        $datas = Registration::where('ID_User', $idUser)->where('lab_name',$idPTN)->where('registration_time',$update_time)->where('date',$date)->get();
+       
+        $dataupdate = UpdateLab::where('idUser', $idUser)->where('idPTN',$idPTN)->where('update_time',$update_time)->where('date',$date)->get();
+        // dd($datas, $dataupdate );
         // dd($dataupdate->status);
-
-        if ($datas && $dataupdate) {
-            $datas->update(['quantity' => $dataupdate->quantity]);
-            $datas->update(['registration_time' => $dataupdate->update_time]);
-            $datas->update(['date' => $dataupdate->date]);
-            $dataupdate->status = true;
-            $dataupdate->save();
-            $datas->save();
-    
-            Session::flash('Cập Nhật Thành Công', 'Cập nhật thông tin người dùng thành công.');
-        } else {
-            Session::flash('Cập Nhật Thất Bại', 'Cập nhật thông tin người dùng thất bại.');
+        foreach ($datas as $d1){
+            foreach ($dataupdate as $d2){
+                 if ($d1 && $d2) {
+                    if($d2->status == false){
+                        $d1->update(['quantity' => $d2->quantity]);
+                        $d2->status = true;
+                        $d2->yesno = true;
+                        $d2->save();
+                        $d1->save();
+                
+                        Session::flash('Cập Nhật Thành Công', 'Cập nhật thông tin người dùng thành công.');
+                    }
+                    
+                } else {
+                    Session::flash('Cập Nhật Thất Bại', 'Cập nhật thông tin người dùng thất bại.');
+                }
+            }
         }
+       
     
-        return redirect()->route('danhsachadmin'); // Thay 'danhsach' bằng tên route của trang bạn muốn redirect đến
+        return redirect()->route('dsYeuCau'); // Thay 'danhsach' bằng tên route của trang bạn muốn redirect đến
     }
 
-    public function updateRegistrationRefuse($id)
+    public function updateRegistrationRefuse($idUser, $idPTN, $update_time, $date)
     {
         // dd($id);
-        $datas = Registration::where('id', $id)->first();
-        $dataupdate = UpdateLab::where('id', $id)->first();
-        dd($dataupdate);
+        $datas = Registration::where('ID_User', $idUser)->where('lab_name',$idPTN)->where('registration_time',$update_time)->where('date',$date)->get();
+       
+        $dataupdate = UpdateLab::where('idUser', $idUser)->where('idPTN',$idPTN)->where('update_time',$update_time)->where('date',$date)->get();
+        // dd($dataupdate);
 
-        if ($datas && $dataupdate) {
-           
-            $dataupdate->status = true;
-            $dataupdate->save();
-            $datas->save();
-    
-            Session::flash('Cập Nhật Thành Công', 'Cập nhật thông tin người dùng thành công.');
-        } else {
-            Session::flash('Cập Nhật Thất Bại', 'Cập nhật thông tin người dùng thất bại.');
+        foreach ($datas as $d1){
+            foreach ($dataupdate as $d2){
+                 if ($d1 && $d2) {
+                    if($d2->status == false){
+                        // $d1->update(['quantity' => $d2->quantity]);
+                        $d2->status = true;
+                        $d2->save();
+                        $d1->save();
+                
+                        Session::flash('Cập Nhật Thất Bại', 'Cập nhật thông tin người dùng thất bại.');
+                    }
+                    
+                } else {
+                    Session::flash('Cập Nhật Thành Công', 'Cập nhật thông tin người dùng thành công.');
+                }
+            }
         }
     
-        return redirect()->route('danhsachadmin'); // Thay 'danhsach' bằng tên route của trang bạn muốn redirect đến
+        return redirect()->route('dsYeuCau'); // Thay 'danhsach' bằng tên route của trang bạn muốn redirect đến
     }
+
+    // SearchController.php
+    
+    
+    
 
 }    

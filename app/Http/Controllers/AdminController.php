@@ -24,6 +24,8 @@ class AdminController extends Controller
     }
 
     public function showdashboard(){
+      
+        
         $labs = Lab::all();
         return view('welcome', ['labs' => $labs]);
     }
@@ -87,7 +89,7 @@ class AdminController extends Controller
             return redirect()->route('welcome');
         }
     } else {
-        session()->flash('message', 'Mật khẩu hoặc tài hoản bị sai. Vui lòng nhập lại.');
+        session()->flash('message', 'Tài Khoản Hoặc Mật Khẩu Không Đúng. Vui Lòng Nhập Lại.');
 
         return view('login');
     }
@@ -130,10 +132,7 @@ class AdminController extends Controller
 
     public function createAccount(Request $request): RedirectResponse
     {
-        $taikhoanTonTai = User::where('macv', $request->macv)
-        ->where('name', $request->name)
-        ->where('email', $request->email)
-        ->first();
+        $taikhoanTonTai = User::where('macv', $request->macv)->where('name', $request->name)->where('email', $request->email)->first();
             
         if ($taikhoanTonTai) {
             return redirect()->back()->with('Tạo Tài Khoản Không Thành Công', 'Tài khoản đã tồn tại');
@@ -151,20 +150,30 @@ class AdminController extends Controller
         event(new Registered($data));
         //dd($request->ID_User);
         $datas = User::all();
-        return redirect()->route('account', ['datas' => $datas])->with('Tạo Taì Khoản Thành Công', 'Tạo Tài Khoản thành công');
+        return redirect()->route('account', ['datas' => $datas])->with('Tạo Tài Khoản Thành Công', 'Tạo Tài Khoản thành công');
     }
 
-    public function deleteAccount($role)
+// LoginController
+    
+    public function login() {
+      $showPassword = false;
+    
+      return view('login')->with('showPassword', $showPassword);
+    }
+    
+
+
+    public function deleteAccount($id)
     {
-        $datas = User::where('role', $role)->get(); // Tìm người dùng theo chức vụ
-        
-        if ($datas->count() > 0) {
-            $datas->each(function ($data) {
-                $data->delete(); // Xóa từng người dùng nếu tìm thấy
-            });
-            Session::flash('Xóa Tài Khoản Thành Công', 'Xóa thành công.');
-        } else {
-            Session::flash('Xóa Tài Khoản Thất Bại', 'Xóa thất bại.');
+        $datas = User::where('id', $id)->first(); // Tìm người dùng theo chức vụ
+        // dd($id);
+        if ($datas){
+            $datas->delete(); // Xóa từng người dùng nếu tìm thấy
+    
+            Session::flash('Xóa Thành Công', 'Xóa tài khoản thành công.');
+        }
+        else {
+            Session::flash('Xóa Thất Bại', 'Xóa tài khoản thất bại.');
         }
     
         return redirect()->route('accounts');
@@ -176,15 +185,10 @@ class AdminController extends Controller
 
     
         if ($datas) {
-            // $datas->update(['quantity' => $request->input('quantity')]);
-            // $datas->update(['registration_time' => $request->input('registration_time')]);
-            // $datas->update(['date' => $request->input('date')]);
-            $datas->fill([
-                'macv' => $request->input('macv'),
-                'email' => $request->input('email'),
-                'password' => $request->input('password'),
-                // Các trường khác tùy theo yêu cầu
-            ]);
+            $datas->update(['macv' => $request->input('macv')]);
+            $datas->update(['name' => $request->input('name')]);
+            $datas->update(['email' => $request->input('email')]);
+           
             $datas->save();
             // dd($datas);
             // Thực hiện cập nhật các trường khác tùy thuộc vào yêu cầu của bạn
