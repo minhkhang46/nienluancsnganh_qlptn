@@ -94,7 +94,7 @@
         <h1 class="text-center text-3xl font-bold text-indigo-700 sm:text-4xl pb-5">PHÒNG THÍ NGHIỆM</h1>
     </div>
 
-    <div class="swiper-container">
+    <div class="swiper-container pt-6">
         <div class="swiper-wrapper">
             @foreach ($labs as $l)
             <div class="swiper-slide flex flex-wrap">

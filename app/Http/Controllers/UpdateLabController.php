@@ -59,7 +59,11 @@ class UpdateLabController extends Controller
 
     public function listupdate(){
         $ups = UpdateLab::all();
-       
+   
+        foreach ($ups as $u) {
+            $u->date = Carbon::parse($u->date)->format('d-m-Y');
+          
+        }
       
         return view('admin.danhsachcapnhat' ,['ups'=>$ups ]);
     }
