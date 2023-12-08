@@ -66,34 +66,34 @@ class AdminController extends Controller
     // }
     public function dashboard(Request $request)
     {
-    $macv = $request->macv;
-    $password = $request->password;
-   
-   
-    $labs = Lab::all();
-    // Thực hiện kiểm tra điều kiện xác thực tùy chỉnh
-    if ($this->customAuthentication($macv, $password)) {
-        // Đăng nhập thành công
-        $user = User::where('macv', $macv)->where('password',$password)->first();
+        $macv = $request->macv;
+        $password = $request->password;
+    
+    
+        $labs = Lab::all();
+        // Thực hiện kiểm tra điều kiện xác thực tùy chỉnh
+        if ($this->customAuthentication($macv, $password)) {
+            // Đăng nhập thành công
+            $user = User::where('macv', $macv)->where('password',$password)->first();
 
-       
+        
 
-        session()->put('name', $user->name);
-        session()->put('id', $user->id);
-        session()->put('macv', $user->macv);
-        session()->put('email', $user->email);
-        if($user->role == 'Admin'){
-            return view('admin.dasboard', ['labs' => $labs]);
-        }  
-        else{
-            return redirect()->route('welcome');
+            session()->put('name', $user->name);
+            session()->put('id', $user->id);
+            session()->put('macv', $user->macv);
+            session()->put('email', $user->email);
+            if($user->role == 'Admin'){
+                return view('admin.dasboard', ['labs' => $labs]);
+            }  
+            else{
+                return redirect()->route('welcome');
+            }
+        } else {
+            session()->flash('message', 'Tài Khoản Hoặc Mật Khẩu Không Đúng. Vui Lòng Nhập Lại.');
+
+            return view('login');
         }
-    } else {
-        session()->flash('message', 'Tài Khoản Hoặc Mật Khẩu Không Đúng. Vui Lòng Nhập Lại.');
-
-        return view('login');
     }
-}
 
     private function customAuthentication($macv, $password)
     {

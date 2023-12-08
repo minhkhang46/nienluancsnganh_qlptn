@@ -24,19 +24,36 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UpdateLabController extends Controller
 {
-    public function showupdateForm($id){
-        // dd($id);
-        $labs = Lab::all();
+    // public function showupdateForm($id){
+    //     // dd($id);
+    //     $labs = Lab::all();
  
+    //     $datas = Registration::where('id', $id)->first();
+    //     if($datas){
+    //         return view('formyeucau' ,['labs'=>$labs, 'datas'=>$datas]);
+    //     }
+    //     else {
+    //         return redirect()->back()->with('error', 'không tìm tháy du lieu');
+    //     }
+       
+    // }
+
+    public function showupdateForm($id, $idUser){
+        // dd($id, $idUser);
+        $currentMacv = session('macv');
+        if($idUser != $currentMacv){
+            return redirect()->back()->with('Lỗi', 'Bạn không thể gửi yêu cầu cửa người khác');
+        }
+
+        $labs = Lab::all();
         $datas = Registration::where('id', $id)->first();
+
         if($datas){
             return view('formyeucau' ,['labs'=>$labs, 'datas'=>$datas]);
         }
         else {
             return redirect()->back()->with('error', 'không tìm tháy du lieu');
         }
-        
-      
        
     }
 

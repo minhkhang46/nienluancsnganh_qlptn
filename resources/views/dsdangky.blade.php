@@ -36,6 +36,29 @@
     
 </head>
 
+@if (Session::has('success'))
+        <script>
+        window.onload = function() {
+            swal('Success', '{{ Session::get('success') }}', 'success',{
+                button:true,
+                button:'OK',
+                timer:5000,
+            });
+        }
+        </script>
+    @endif
+    @if (Session::has('Lỗi'))
+        <script>
+        window.onload = function() {
+            swal('Lỗi', '{{ Session::get('Lỗi') }}', 'error',{
+                button:true,
+                button:'OK',
+                timer:5000,
+            });
+        }
+        </script>
+    @endif
+
 <body style="background-image: url('/my-project2/public/images/anhnen5.png'); background-size: cover; background-repeat: repeat; background-position: center; justify-content: center; align-items: center; height: 100vh;">
 <div class="antialiased font-sans text-gray-900">
         <nav class="bg-white ">
@@ -177,7 +200,7 @@
                                         <td class="px-4 py-3">{{$r->date}}</td>
                                         <td class="px-4 py-3">
                                     
-                                            <a href ="{{route('YeuCau', ['id' => $r->id])}}" class="flex justify-center items-center ">
+                                            <a href ="{{route('YeuCau', ['id' => $r->id, 'idUser' => $r->ID_User])}}" class="flex justify-center items-center ">
                                                 <img src="/my-project2/public/images/edit.png" alt="Logo" class="h-10  "> 
                                             </a>
                                             
@@ -215,7 +238,7 @@
                                         <td class="px-4 py-3">{{$r->date}}</td>
                                         <td class="px-4 py-3">
                                      
-                                            <a href ="{{route('YeuCau', ['id' => $r->id])}}" class="flex justify-center items-center">
+                                            <a href ="{{route('YeuCau', ['id' => $r->id, 'idUser' => $r->ID_User])}}" class="flex justify-center items-center">
                                                 <img src="/my-project2/public/images/edit.png" alt="Logo" class="h-10 "> 
                                             </a>
                                             

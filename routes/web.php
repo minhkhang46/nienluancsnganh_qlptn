@@ -90,7 +90,7 @@ Route::delete('/deletetb/{id}', [DeviceController::class, 'deletedevice'])->name
 Route::put('/update_tb/{id}/update', [DeviceController::class, 'updatedevice'])->name('update_tb')->middleware('web');
 Route::get('/capnhat/{id}', 'App\Http\Controllers\DeviceController@updatedevices')->name('capnhat');
 
-Route::get('/YeuCau/{id}', 'App\Http\Controllers\UpdateLabController@showupdateForm')->name('YeuCau');
+Route::get('/YeuCau/{id}/{idUser}', 'App\Http\Controllers\UpdateLabController@showupdateForm')->name('YeuCau');
 Route::post('/YeuCauChinhSua', 'App\Http\Controllers\UpdateLabController@createupdate')->name('YeuCauChinhSua');
 Route::get('/dsYeuCau', 'App\Http\Controllers\UpdateLabController@listupdate')->name('dsYeuCau');
 Route::delete('/deleteup/{id}', [UpdateLabController::class, 'deleteupdate'])->name('deleteup');
